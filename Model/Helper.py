@@ -12,8 +12,6 @@ def North(i, j, board, turn):
                 return [k, j]
             elif board[k][j] == turn:
                 return
-            else:
-                continue
         return
 
 
@@ -26,8 +24,6 @@ def East(i, j, board, turn):
                 return [i, k]
             elif board[i][k] == turn:
                 return
-            else:
-                continue
         return
 
 
@@ -40,8 +36,6 @@ def South(i, j, board, turn):
                 return [k, j]
             elif board[k][j] == turn:
                 return
-            else:
-                continue
         return
 
 
@@ -54,8 +48,6 @@ def West(i, j, board, turn):
                 return [i, k]
             elif board[i][k] == turn:
                 return
-            else:
-                continue
         return
 
 
@@ -69,9 +61,7 @@ def NorthEast(i, j, board, turn):
                 return [k1, k2]
             elif board[k1][k2] == turn:
                 return
-            else:
-                k1, k2 = k1 - 1, k2 + 1
-                continue
+            k1, k2 = k1 - 1, k2 + 1
         return
 
 
@@ -85,9 +75,7 @@ def SouthEast(i, j, board, turn):
                 return [k1, k2]
             elif board[k1][k2] == turn:
                 return
-            else:
-                k1, k2 = k1 + 1, k2 + 1
-                continue
+            k1, k2 = k1 + 1, k2 + 1
         return
 
 
@@ -101,9 +89,7 @@ def SouthWest(i, j, board, turn):
                 return [k1, k2]
             elif board[k1][k2] == turn:
                 return
-            else:
-                k1, k2 = k1 + 1, k2 - 1
-                continue
+            k1, k2 = k1 + 1, k2 - 1
         return
 
 
@@ -117,9 +103,7 @@ def NorthWest(i, j, board, turn):
                 return [k1, k2]
             elif board[k1][k2] == turn:
                 return
-            else:
-                k1, k2 = k1 - 1, k2 - 1
-                continue
+            k1, k2 = k1 - 1, k2 - 1
         return
 
 
@@ -133,7 +117,7 @@ def opp(x):
 def flipNorth(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
+
     if board[i - 1][j] == 0 or board[i - 1][j] == turn:
         return board
     for k in range(i - 2, -1, -1):
@@ -143,20 +127,18 @@ def flipNorth(pos, board, turn):
             return board
         elif board[k][j] == turn:
             break
-        else:
-            continue
-    if flag:
+
+    i -= 1
+    while i >= 0 and board[i][j] != turn:
+        board[i][j] = turn
         i -= 1
-        while i >= 0 and board[i][j] != turn:
-            board[i][j] = turn
-            i -= 1
     return board
 
 
 def flipEast(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
+
     if board[i][j + 1] == 0 or board[i][j + 1] == turn:
         return board
     for k in range(j + 2, 8):
@@ -166,20 +148,17 @@ def flipEast(pos, board, turn):
             return board
         elif board[i][k] == turn:
             break
-        else:
-            continue
-    if flag:
+
+    j += 1
+    while j < 8 and board[i][j] != turn:
+        board[i][j] = turn
         j += 1
-        while j < 8 and board[i][j] != turn:
-            board[i][j] = turn
-            j += 1
     return board
 
 
 def flipSouth(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
     if board[i + 1][j] == 0 or board[i + 1][j] == turn:
         return board
     for k in range(i + 2, 8):
@@ -189,20 +168,18 @@ def flipSouth(pos, board, turn):
             return board
         elif board[k][j] == turn:
             break
-        else:
-            continue
-    if flag:
+
+    i += 1
+    while i < 8 and board[i][j] != turn:            # while i < k:
+        board[i][j] = turn
         i += 1
-        while i < 8 and board[i][j] != turn:
-            board[i][j] = turn
-            i += 1
     return board
 
 
 def flipWest(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
+
     if board[i][j - 1] == 0 or board[i][j - 1] == turn:
         return board
     for k in range(j - 2, -1, -1):
@@ -212,20 +189,18 @@ def flipWest(pos, board, turn):
             return board
         elif board[i][k] == turn:
             break
-        else:
-            continue
-    if flag:
+
+    j -= 1
+    while j >= 0 and board[i][j] != turn:
+        board[i][j] = turn
         j -= 1
-        while j >= 0 and board[i][j] != turn:
-            board[i][j] = turn
-            j -= 1
     return board
 
 
 def flipNorthEast(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
+
     if board[i - 1][j + 1] == 0 or board[i - 1][j + 1] == turn:
         return board
     k1 = i - 2
@@ -237,24 +212,22 @@ def flipNorthEast(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        else:
-            k1 -= 1
-            k2 += 1
-            continue
-    if flag:
+        k1 -= 1
+        k2 += 1
+
+    i -= 1
+    j += 1
+    while i >= 0 and j < 8 and board[i][j] != turn:
+        board[i][j] = turn
         i -= 1
         j += 1
-        while i >= 0 and j < 8 and board[i][j] != turn:
-            board[i][j] = turn
-            i -= 1
-            j += 1
     return board
 
 
 def flipSouthEast(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
+
     if board[i + 1][j + 1] == 0 or board[i + 1][j + 1] == turn:
         return board
     k1 = i + 2
@@ -266,24 +239,22 @@ def flipSouthEast(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        else:
-            k1 += 1
-            k2 += 1
-            continue
-    if flag:
+        k1 += 1
+        k2 += 1
+
+    i += 1
+    j += 1
+    while i < 8 and j < 8 and board[i][j] != turn:
+        board[i][j] = turn
         i += 1
         j += 1
-        while i < 8 and j < 8 and board[i][j] != turn:
-            board[i][j] = turn
-            i += 1
-            j += 1
     return board
 
 
 def flipSouthWest(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
+
     if board[i + 1][j - 1] == 0 or board[i + 1][j - 1] == turn:
         return board
     k1 = i + 2
@@ -295,24 +266,22 @@ def flipSouthWest(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        else:
-            k1 += 1
-            k2 -= 1
-            continue
-    if flag:
+        k1 += 1
+        k2 -= 1
+
+    i += 1
+    j -= 1
+    while i < 8 and j >= 0 and board[i][j] != turn:
+        board[i][j] = turn
         i += 1
         j -= 1
-        while i < 8 and j >= 0 and board[i][j] != turn:
-            board[i][j] = turn
-            i += 1
-            j -= 1
     return board
 
 
 def flipNorthWest(pos, board, turn):
     i, j = pos
     board[i][j] = turn
-    flag = True
+
     if board[i - 1][j - 1] == 0 or board[i - 1][j - 1] == turn:
         return board
     k1 = i - 2
@@ -324,17 +293,15 @@ def flipNorthWest(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        else:
-            k1 -= 1
-            k2 -= 1
-            continue
-    if flag:
+        k1 -= 1
+        k2 -= 1
+
+    i -= 1
+    j -= 1
+    while i >= 0 and j >= 0 and board[i][j] != turn:
+        board[i][j] = turn
         i -= 1
         j -= 1
-        while i >= 0 and j >= 0 and board[i][j] != turn:
-            board[i][j] = turn
-            i -= 1
-            j -= 1
     return board
 
 
@@ -373,6 +340,7 @@ def Next(state, turn):
         for j in range(0, 8):
             if board[i][j] == turn:
                 possible_pos = possible(board, i, j, turn)
+                                                                            # TODO-DONE: Whether next is available or not; otherwise nextState will be same as currentState
                 new_states = flip(copy.deepcopy(board), possible_pos, turn)
                 state_array += new_states
     return state_array
