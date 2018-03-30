@@ -7,7 +7,7 @@ class State:
     Value = 0
     # The two types of pieces
     Black = 1
-    Whtie = -1
+    White = -1
 
     def __init__(self, board):
         self.Board = board
