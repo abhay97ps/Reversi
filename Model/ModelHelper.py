@@ -286,15 +286,9 @@ def flipNorthWest(pos, board, turn):
 
 
 def possible(board, i, j, turn):
-    tbr = []
-    tbr.append(North(i, j, board, turn))
-    tbr.append(East(i, j, board, turn))
-    tbr.append(South(i, j, board, turn))
-    tbr.append(West(i, j, board, turn))
-    tbr.append(NorthEast(i, j, board, turn))
-    tbr.append(SouthEast(i, j, board, turn))
-    tbr.append(SouthWest(i, j, board, turn))
-    tbr.append(NorthWest(i, j, board, turn))
+    tbr = [North(i, j, board, turn), East(i, j, board, turn), South(i, j, board, turn), West(i, j, board, turn),
+           NorthEast(i, j, board, turn), SouthEast(i, j, board, turn), SouthWest(i, j, board, turn),
+           NorthWest(i, j, board, turn)]
     return tbr
 
 
@@ -319,8 +313,7 @@ def Next(state, turn):
     for i in range(0, 8):
         for j in range(0, 8):
             if board[i][j] == turn:
-                possible_pos = possible(board, i, j,
-                                        turn)  # TODO-DONE: Whether next is available or not; otherwise nextState will be same as currentState
+                possible_pos = possible(board, i, j, turn)  # TODO-DONE: Whether next is available or not
                 new_states = flip(copy.deepcopy(board), possible_pos, turn)
                 state_array += new_states
     return state_array
