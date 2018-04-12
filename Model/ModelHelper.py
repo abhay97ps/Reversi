@@ -170,7 +170,7 @@ def flipSouth(pos, board, turn):
             break
 
     i += 1
-    while i < 8 and board[i][j] != turn:            # while i < k:
+    while i < 8 and board[i][j] != turn:  # while i < k:
         board[i][j] = turn
         i += 1
     return board
@@ -203,8 +203,7 @@ def flipNorthEast(pos, board, turn):
 
     if board[i - 1][j + 1] == 0 or board[i - 1][j + 1] == turn:
         return board
-    k1 = i - 2
-    k2 = j + 2
+    k1, k2 = i - 2, j + 2
     while k1 > -1 and k2 < 8:
         if board[k1][k2] == 0:
             return board
@@ -212,15 +211,11 @@ def flipNorthEast(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        k1 -= 1
-        k2 += 1
-
-    i -= 1
-    j += 1
+        k1, k2 = k1 - 1, k2 + 1
+    i, j = i - 1, j + 1
     while i >= 0 and j < 8 and board[i][j] != turn:
         board[i][j] = turn
-        i -= 1
-        j += 1
+        i, j = i - 1, j + 1
     return board
 
 
@@ -230,8 +225,7 @@ def flipSouthEast(pos, board, turn):
 
     if board[i + 1][j + 1] == 0 or board[i + 1][j + 1] == turn:
         return board
-    k1 = i + 2
-    k2 = j + 2
+    k1, k2 = i + 2, j + 2
     while k1 < 8 and k2 < 8:
         if board[k1][k2] == 0:
             return board
@@ -239,15 +233,11 @@ def flipSouthEast(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        k1 += 1
-        k2 += 1
-
-    i += 1
-    j += 1
+        k1, k2 = k1 + 1, k2 + 1
+    i, j = i + 1, j + 1
     while i < 8 and j < 8 and board[i][j] != turn:
         board[i][j] = turn
-        i += 1
-        j += 1
+        i, j = i + 1, j + 1
     return board
 
 
@@ -257,8 +247,7 @@ def flipSouthWest(pos, board, turn):
 
     if board[i + 1][j - 1] == 0 or board[i + 1][j - 1] == turn:
         return board
-    k1 = i + 2
-    k2 = j - 2
+    k1, k2 = i + 2, j - 2
     while k1 < 8 and k2 > -1:
         if board[k1][k2] == 0:
             return board
@@ -266,15 +255,11 @@ def flipSouthWest(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        k1 += 1
-        k2 -= 1
-
-    i += 1
-    j -= 1
+        k1, k2 = k1 + 1, k2 - 1
+    i, j = i + 1, j - 1
     while i < 8 and j >= 0 and board[i][j] != turn:
         board[i][j] = turn
-        i += 1
-        j -= 1
+        i, j = i + 1, j - 1
     return board
 
 
@@ -284,8 +269,7 @@ def flipNorthWest(pos, board, turn):
 
     if board[i - 1][j - 1] == 0 or board[i - 1][j - 1] == turn:
         return board
-    k1 = i - 2
-    k2 = j - 2
+    k1, k2 = i - 2, j - 2
     while k1 > -1 and k2 > -1:
         if board[k1][k2] == 0:
             return board
@@ -293,28 +277,18 @@ def flipNorthWest(pos, board, turn):
             return board
         elif board[k1][k2] == turn:
             break
-        k1 -= 1
-        k2 -= 1
-
-    i -= 1
-    j -= 1
+        k1, k2 = k1 - 1, k2 - 1
+    i, j = i - 1, j - 1
     while i >= 0 and j >= 0 and board[i][j] != turn:
         board[i][j] = turn
-        i -= 1
-        j -= 1
+        i, j = i - 1, j - 1
     return board
 
 
 def possible(board, i, j, turn):
-    tbr = []
-    tbr.append(North(i, j, board, turn))
-    tbr.append(East(i, j, board, turn))
-    tbr.append(South(i, j, board, turn))
-    tbr.append(West(i, j, board, turn))
-    tbr.append(NorthEast(i, j, board, turn))
-    tbr.append(SouthEast(i, j, board, turn))
-    tbr.append(SouthWest(i, j, board, turn))
-    tbr.append(NorthWest(i, j, board, turn))
+    tbr = [North(i, j, board, turn), East(i, j, board, turn), South(i, j, board, turn), West(i, j, board, turn),
+           NorthEast(i, j, board, turn), SouthEast(i, j, board, turn), SouthWest(i, j, board, turn),
+           NorthWest(i, j, board, turn)]
     return tbr
 
 
@@ -339,8 +313,7 @@ def Next(state, turn):
     for i in range(0, 8):
         for j in range(0, 8):
             if board[i][j] == turn:
-                possible_pos = possible(board, i, j, turn)
-                                                                            # TODO-DONE: Whether next is available or not; otherwise nextState will be same as currentState
+                possible_pos = possible(board, i, j, turn)  # TODO-DONE: Whether next is available or not
                 new_states = flip(copy.deepcopy(board), possible_pos, turn)
                 state_array += new_states
     return state_array

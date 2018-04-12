@@ -1,11 +1,10 @@
 import numpy as np
-from Bot.Heuristic import evaluate
 
 
 class State:
     Board = np.zeros((8, 8))
     Value = 0
-    # The two types of pieces
+    # The two types of pieces/players
     Black = 1
     White = -1
 
@@ -14,4 +13,17 @@ class State:
         self.Value = self.value()
 
     def value(self):
-        return evaluate(self.Board)
+        value = 0
+        # to do quantify state
+        for i in range(0, 8):
+            for j in range(0, 8):
+                if self.Board[i][j] == 1:
+                    value += 1
+                elif self.Board[i][j] == -1:
+                    value += -1
+                else:
+                    value += 0
+        if value > 0:
+            return 1        # Black won
+        else:
+            return -1       # White won
